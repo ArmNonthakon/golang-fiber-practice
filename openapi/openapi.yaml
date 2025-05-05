@@ -1,0 +1,131 @@
+openapi: 3.1.1
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: This is golang project for practice using open-api and oapi-codegen
+  x-go-package: github.com/oapi-codegen/runtime
+  version: 1.0.12
+paths:
+  /user:
+    get:
+      summary: Get All user
+      operationId: getUser
+      responses:
+        '200':
+          description: Return All user Successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+              example:
+                - id: '1'
+                  name: Arm
+                - id: '2'
+                  name: Teen
+    post:
+      summary: Create new user
+      operationId: createUser
+      requestBody:
+        $ref: '#/components/requestBodies/user'
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              example:
+                id: '5'
+                name: NewUserName
+  /user/{id}:
+    get:
+      summary: Get user by ID
+      operationId: getUserById
+      parameters:
+        - in: path
+          name: id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return User Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              example:
+                id: '1'
+                name: Arm
+        '404':
+          description: User Not Found
+    delete:
+      summary: Delete user by ID
+      operationId: deleteUserById
+      parameters:
+        - in: path
+          name: id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted User Successfully
+        '404':
+          description: User Not Found
+    put:
+      summary: Modify user
+      operationId: modifyUserById
+      parameters:
+        - in: path
+          name: id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            example:
+              name: ModifyArm
+      responses:
+        '200':
+          description: User modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              example:
+                id: '5'
+                name: ModifyArm
+        '404':
+          description: User Not Found
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+  requestBodies:
+    user:
+      description: Request User body
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/user'
+          example:
+            id: '5'
+            name: NewUserName

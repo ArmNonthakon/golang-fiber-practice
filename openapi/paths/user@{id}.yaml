@@ -1,0 +1,73 @@
+get:
+  summary: Get user by ID
+  operationId: getUserById
+  parameters:
+    - in: path
+      name: id
+      description: User ID
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Return User Successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/user.yaml
+          example:
+            id: "1"
+            name: "Arm"
+    '404':
+      description: User Not Found
+
+delete:
+  summary: Delete user by ID
+  operationId: deleteUserById
+  parameters:
+    - in: path
+      name: id
+      description: User ID
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Deleted User Successfully
+    '404':
+      description: User Not Found
+        
+
+put:
+  summary: Modify user
+  operationId: modifyUserById
+  parameters:
+    - in: path
+      name: id
+      description: User ID
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+        example:
+          name : "ModifyArm"
+  responses:
+    '200':
+      description: User modified successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/user.yaml
+          example:
+            id: "5"
+            name: "ModifyArm"
+    '404':
+      description: User Not Found

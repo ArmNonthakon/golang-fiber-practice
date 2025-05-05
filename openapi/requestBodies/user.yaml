@@ -1,0 +1,9 @@
+description: Request User body
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../components/user.yaml
+    example:
+        id: "5"
+        name: "NewUserName"

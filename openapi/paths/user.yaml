@@ -1,0 +1,36 @@
+get:
+  summary: Get All user
+  operationId: getUser
+  responses:
+    '200':
+      description: Return All user Successfully
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/user.yaml
+          example:
+            - id: "1"
+              name: "Arm"
+            - id: "2"
+              name: "Teen"
+
+post:
+  summary: Create new user
+  operationId: createUser
+  requestBody:
+    $ref: ../requestBodies/user.yaml
+  responses:
+    '200': 
+      description: User created successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/user.yaml
+          example:
+            id: "5"
+            name: "NewUserName"
+    
+            
+

@@ -1,0 +1,15 @@
+openapi: 3.1.1
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is golang project for practice using open-api and oapi-codegen
+  x-go-package: "github.com/oapi-codegen/runtime"
+  version: 1.0.12
+
+
+paths:
+  /user:
+    $ref: paths/user.yaml
+  /user/{id}:
+    $ref: paths/user@{id}.yaml
+
