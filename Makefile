@@ -8,7 +8,7 @@ openapi-combine:
 	redocly bundle openapi/root.yaml -o openapi/openapi.yaml 
 
 openapi-gen:
-	oapi-codegen -package=server -generate "spec,fiber" openapi/openapi.yaml > internal/generated/server/server.gen.go
+	oapi-codegen -package=server -generate "types,spec,fiber" openapi/openapi.yaml > internal/generated/server/server.gen.go
 
 openapi-doc:
 	redocly build-docs openapi/openapi.yaml --output=openapi/openapi-static.html

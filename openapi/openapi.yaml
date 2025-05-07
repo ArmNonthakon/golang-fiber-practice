@@ -27,7 +27,7 @@ paths:
       summary: Create new user
       operationId: createUser
       requestBody:
-        $ref: '#/components/requestBodies/user'
+        $ref: '#/components/requestBodies/user_request'
       responses:
         '200':
           description: User created successfully
@@ -87,16 +87,7 @@ paths:
           schema:
             type: string
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-            example:
-              name: ModifyArm
+        $ref: '#/components/requestBodies/user_request'
       responses:
         '200':
           description: User modified successfully
@@ -119,13 +110,15 @@ components:
         name:
           type: string
   requestBodies:
-    user:
+    user_request:
       description: Request User body
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/user'
+            type: object
+            properties:
+              name:
+                type: string
           example:
-            id: '5'
             name: NewUserName

@@ -4,16 +4,16 @@ import (
 	"fmt"
 
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/data/repository"
-	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/domain/entity"
+	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/generated/server"
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/pkg/mapper"
 )
 
 type UserService interface {
-	GetUser() ([]entity.UserEntity, error)
-	PostUser(name string) (entity.UserEntity, error)
+	GetUser() ([]server.User, error)
+	PostUser(name string) (server.User, error)
 	DeleteUserId(id string) (string, error)
-	GetUserId(id string) (entity.UserEntity, error)
-	PutUserId(name string, id string) (entity.UserEntity, error)
+	GetUserId(id string) (server.User, error)
+	PutUserId(name string, id string) (server.User, error)
 }
 
 type UserServiceImpl struct {
@@ -21,7 +21,7 @@ type UserServiceImpl struct {
 	mapper mapper.UserMapper
 }
 
-func (u *UserServiceImpl) GetUser() ([]entity.UserEntity, error) {
+func (u *UserServiceImpl) GetUser() ([]server.User, error) {
 	res, err := u.repo.GetUser()
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func (u *UserServiceImpl) GetUser() ([]entity.UserEntity, error) {
 		return nil, fmt.Errorf("no data")
 	}
 
-	result := make([]entity.UserEntity, 0, len(res))
+	result := make([]server.User, 0, len(res))
 	for _, data := range res {
 		result = append(result, u.mapper.Mapper(data))
 	}
@@ -39,16 +39,16 @@ func (u *UserServiceImpl) GetUser() ([]entity.UserEntity, error) {
 	return result, nil
 }
 
-func (u *UserServiceImpl) GetUserId(id string) (entity.UserEntity, error) {
+func (u *UserServiceImpl) GetUserId(id string) (server.User, error) {
 	res, err := u.repo.GetUserId(id)
 
 	if err != nil {
-		return entity.UserEntity{}, err
+		return server.User{}, err
 	}
 	result := u.mapper.Mapper(res)
 
-	if result.Id == "" {
-		return entity.UserEntity{}, fmt.Errorf("No data")
+	if result.Id == nil {
+		return server.User{}, fmt.Errorf("No data")
 	}
 	return result, nil
 }
@@ -62,28 +62,28 @@ func (u *UserServiceImpl) DeleteUserId(id string) (string, error) {
 	return res, nil
 }
 
-func (u *UserServiceImpl) PostUser(name string) (entity.UserEntity, error) {
+func (u *UserServiceImpl) PostUser(name string) (server.User, error) {
 	res, err := u.repo.PostUser(name)
 	if err != nil {
-		return entity.UserEntity{}, err
+		return server.User{}, err
 	}
 	result := u.mapper.Mapper(res)
 
-	if result.Id == "" {
-		return entity.UserEntity{}, fmt.Errorf("No data")
+	if result.Id == nil {
+		return server.User{}, fmt.Errorf("No data")
 	}
 	return result, nil
 }
 
-func (u *UserServiceImpl) PutUserId(name string, id string) (entity.UserEntity, error) {
+func (u *UserServiceImpl) PutUserId(name string, id string) (server.User, error) {
 	res, err := u.repo.PutUserId(name, id)
 	if err != nil {
-		return entity.UserEntity{}, err
+		return server.User{}, err
 	}
 	result := u.mapper.Mapper(res)
 
-	if result.Id == "" {
-		return entity.UserEntity{}, fmt.Errorf("No data")
+	if result.Id == nil {
+		return server.User{}, fmt.Errorf("No data")
 	}
 	return result, nil
 }

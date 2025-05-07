@@ -20,7 +20,7 @@ post:
   summary: Create new user
   operationId: createUser
   requestBody:
-    $ref: ../requestBodies/user.yaml
+    $ref: ../requestBodies/user_request.yaml
   responses:
     '200': 
       description: User created successfully

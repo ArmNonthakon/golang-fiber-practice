@@ -3,7 +3,9 @@ required: true
 content:
   application/json:
     schema:
-      $ref: ../components/user.yaml
+      type: object
+      properties:
+        name:
+          type: string
     example:
-        id: "5"
         name: "NewUserName"

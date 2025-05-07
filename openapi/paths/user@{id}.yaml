@@ -49,16 +49,7 @@ put:
       schema:
         type: string
   requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-        example:
-          name : "ModifyArm"
+    $ref: ../requestBodies/user_request.yaml
   responses:
     '200':
       description: User modified successfully

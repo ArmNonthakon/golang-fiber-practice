@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/data/database/jet_generated/go_database/model"
-	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/domain/entity"
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/domain/usecase"
+	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/generated/server"
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/pkg/mapper"
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/pkg/pointer"
 	"github.com/stretchr/testify/assert"
@@ -61,7 +61,7 @@ func initService() (usecase.UserService, *MockRepository) {
 
 func TestGetUser(t *testing.T) {
 	service, mockRepo := initService()
-	expectedUsers := []entity.UserEntity{{Id: "1", Name: "user1"}, {Id: "2", Name: "user2"}}
+	expectedUsers := []server.User{{Id: pointer.Ptr("1"), Name: pointer.Ptr("user1")}, {Id: pointer.Ptr("2"), Name: pointer.Ptr("user2")}}
 
 	actual, err := service.GetUser()
 
@@ -72,8 +72,8 @@ func TestGetUser(t *testing.T) {
 
 func TestGetUserId(t *testing.T) {
 	service, mockRepo := initService()
-	expectedUsers1 := entity.UserEntity{Id: "1", Name: "user1"}
-	expectedUsers2 := entity.UserEntity{Id: "2", Name: "user2"}
+	expectedUsers1 := server.User{Id: pointer.Ptr("1"), Name: pointer.Ptr("user1")}
+	expectedUsers2 := server.User{Id: pointer.Ptr("2"), Name: pointer.Ptr("user2")}
 
 	actual1, err := service.GetUserId("1")
 	actual2, err := service.GetUserId("2")
@@ -100,7 +100,7 @@ func TestDeleteUser(t *testing.T) {
 
 func TestPostUser(t *testing.T) {
 	service, mockRepo := initService()
-	expectedUsers := entity.UserEntity{Id: "3", Name: "newUser"}
+	expectedUsers := server.User{Id: pointer.Ptr("3"), Name: pointer.Ptr("newUser")}
 
 	actual, err := service.PostUser("newUser")
 
@@ -111,7 +111,7 @@ func TestPostUser(t *testing.T) {
 
 func TestPutUserId(t *testing.T) {
 	service, mockRepo := initService()
-	expectedUsers := entity.UserEntity{Id: "1", Name: "newName"}
+	expectedUsers := server.User{Id: pointer.Ptr("1"), Name: pointer.Ptr("newName")}
 
 	actual, err := service.PutUserId("newName", "1")
 

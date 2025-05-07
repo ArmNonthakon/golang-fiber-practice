@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/data/database/jet_generated/go_database/model"
-	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/domain/entity"
 	"github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/generated/server"
 	handler "github.com/ArmNonthakon/golang-openapi-openapicodegen/internal/interfaces/http"
+	"github.com/ArmNonthakon/golang-openapi-openapicodegen/pkg/pointer"
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -25,25 +25,25 @@ func (m *MockService) DeleteUserId(id string) (string, error) {
 	return "Delete success", nil
 }
 
-func (m *MockService) GetUser() ([]entity.UserEntity, error) {
-	return []entity.UserEntity{{Id: "1", Name: "user1"}, {Id: "2", Name: "user2"}}, nil
+func (m *MockService) GetUser() ([]server.User, error) {
+	return []server.User{{Id: pointer.Ptr("1"), Name: pointer.Ptr("user1")}, {Id: pointer.Ptr("2"), Name: pointer.Ptr("user2")}}, nil
 }
 
-func (m *MockService) GetUserId(id string) (entity.UserEntity, error) {
+func (m *MockService) GetUserId(id string) (server.User, error) {
 	if id == "1" {
-		return entity.UserEntity{Id: "1", Name: "user1"}, nil
+		return server.User{Id: pointer.Ptr("1"), Name: pointer.Ptr("user1")}, nil
 	} else if id == "2" {
-		return entity.UserEntity{Id: "2", Name: "user2"}, nil
+		return server.User{Id: pointer.Ptr("2"), Name: pointer.Ptr("user2")}, nil
 	}
-	return entity.UserEntity{}, fmt.Errorf("Not found")
+	return server.User{}, fmt.Errorf("Not found")
 }
 
-func (m *MockService) PostUser(name string) (entity.UserEntity, error) {
-	return entity.UserEntity{Id: "3", Name: name}, nil
+func (m *MockService) PostUser(name string) (server.User, error) {
+	return server.User{Id: pointer.Ptr("3"), Name: &name}, nil
 }
 
-func (m *MockService) PutUserId(name string, id string) (entity.UserEntity, error) {
-	return entity.UserEntity{Id: id, Name: name}, nil
+func (m *MockService) PutUserId(name string, id string) (server.User, error) {
+	return server.User{Id: &id, Name: &name}, nil
 }
 
 func initService() server.ServerInterface {

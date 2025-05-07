@@ -41,7 +41,7 @@ func (s *Handler) GetUserById(c *fiber.Ctx, id string) error {
 }
 
 func (s *Handler) CreateUser(c *fiber.Ctx) error {
-	user := new(model.User)
+	user := new(server.CreateUserJSONRequestBody)
 
 	if err := c.BodyParser(user); err != nil {
 		return err
@@ -54,7 +54,7 @@ func (s *Handler) CreateUser(c *fiber.Ctx) error {
 }
 
 func (s *Handler) ModifyUserById(c *fiber.Ctx, id string) error {
-	user := new(model.User)
+	user := new(server.ModifyUserByIdJSONRequestBody)
 
 	if err := c.BodyParser(user); err != nil {
 		return err
